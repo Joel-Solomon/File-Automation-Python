@@ -15,6 +15,8 @@ Write down the logical objective and then GOOGLE!!
 
 #how to check when a new download has been added - the trigger#
 
+
+
 #---------------------------------------
 #os.listdir(.C:\Users\joels\Downloads) returns just the contents of a file / directory but not the file type 
 file_list = os.scandir('/Users/joels/Downloads') # returns the file type ASWELL as the files in the directory
@@ -24,11 +26,16 @@ num_of_files = 0
 
 for entry in file_list:
     num_of_files += 1
+    os.path.split
     if entry.is_file():
-        print(entry.name)
+        entry = str(entry.name)
+        print(entry.split(".")[-1])
+
+
 print(num_of_files)
 print(type(file_list))
-#print(len(file_list))
+
+#os.scandir returns a class object thus
 
 
 #! function hasDownloadsBeenIncreased():
