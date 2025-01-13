@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -15,26 +16,35 @@ class MyHandler(FileSystemEventHandler):
         '''
         apon creation the extension must be checked 
         then moved to the correct directory 
-        extension: make directory is extension has not been read before
+        extension: make directory if extension has not been read before
         '''
 
         entry = str(event.src_path)
-        ext = (entry.split(".")[-1])
-        file_name = (entry.split("/"[-1]))
+        ext = os.path.splitext(entry)[-1][1:]
+        file_name = os.path.basename(entry)
 
-        print(ext)
+        target_dir = f'/Users/joels/Documents/test_destination/{ext}'
+        target_path = f'{target_dir}/{file_name}'
 
-        '''
+        print(f"file extension: {ext}")
+
         if ext in directory_dict:
-            #MOVE FILE TO '/DEDICATED PATH/ {ext}'
-            if os.path.exists(f'/Users/joels/Documents/test_destination/{ext}/{file_name}'):
+            # MOVE FILE TO '/DEDICATED PATH/ {ext}'
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir)
+                print(f'Directory created: {target_dir}')
+
+            if os.path.exists(f'{target_path}'):
                 print("already a file in this directory with the same name!")
             else:
-                os.replace(entry, f"/Users/joels/Documents/test_destination/{ext}")
-                print(entry + "was moved")
+                os.replace(entry, target_path)
+                print(f'file was moved to {target_path}')
         else:
-            pass # create a directory with the current extension as the name
-        '''
+            # create a directory with the current extension as the name
+            os.makedirs(target_dir, exist_ok=True)
+            print(file_name + "was moved")
+            os.replace(entry, target_path)
+            directory_dict[ext] = 1
 
 
 if __name__ == "__main__":
