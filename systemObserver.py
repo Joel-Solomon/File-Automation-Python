@@ -50,7 +50,7 @@ class MyHandler(FileSystemEventHandler):
 if __name__ == "__main__":
     event_handler = MyHandler()
     observer = Observer()
-    observer.schedule(event_handler, path='/Users/joels/Downloads', recursive=Fals e)
+    observer.schedule(event_handler, path='/Users/joels/Downloads', recursive=False)
     observer.start()
 
     try:
