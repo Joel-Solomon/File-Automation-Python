@@ -26,7 +26,7 @@ class MyHandler(FileSystemEventHandler):
         target_dir = f'/Users/joels/Documents/test_destination/{ext}'
         target_path = f'{target_dir}/{file_name}'
 
-        print(f"file extension: {ext}")
+        print(f'file extension: {ext}')
 
         if ext in directory_dict:
             # MOVE FILE TO '/DEDICATED PATH/ {ext}'
@@ -42,7 +42,7 @@ class MyHandler(FileSystemEventHandler):
         else:
             # create a directory with the current extension as the name
             os.makedirs(target_dir, exist_ok=True)
-            print(file_name + "was moved")
+            print(f'{file_name} was moved to {target_path}')
             os.replace(entry, target_path)
             directory_dict[ext] = 1
 
@@ -50,7 +50,7 @@ class MyHandler(FileSystemEventHandler):
 if __name__ == "__main__":
     event_handler = MyHandler()
     observer = Observer()
-    observer.schedule(event_handler, path='/Users/joels/Downloads', recursive=False)
+    observer.schedule(event_handler, path='/Users/joels/Downloads', recursive=Fals e)
     observer.start()
 
     try:
